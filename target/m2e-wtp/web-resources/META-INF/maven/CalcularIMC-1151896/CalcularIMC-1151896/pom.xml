@@ -50,5 +50,10 @@
   		<artifactId>ApiRest</artifactId>
   		<version>0.0.1-SNAPSHOT</version>
   	</dependency>
+  	<dependency>
+  		<groupId>crud</groupId>
+  		<artifactId>crud</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   </dependencies>
 </project>
