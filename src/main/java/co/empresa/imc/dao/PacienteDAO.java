@@ -10,6 +10,6 @@ public interface PacienteDAO {
 	public void insertUser(Paciente paciente) throws SQLException;
 	public Paciente selectUser(Integer id);
 	public List < Paciente > selectAllUsers();
-	public boolean deleteUser(Integer id) throws SQLException;
+	public boolean deleteUser(int id) throws SQLException;
 	public boolean updateUser(Paciente paciente) throws SQLException;
 }

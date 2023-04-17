@@ -58,7 +58,7 @@ public class PacienteDAOJdbc implements PacienteDAO {
             preparedStatement.setString(8, paciente.getTelefono());
             preparedStatement.setString(9, paciente.getDireccion());
             preparedStatement.setInt(10, paciente.getPeso());
-            preparedStatement.setInt(3, paciente.getEstatura());
+            preparedStatement.setInt(11, paciente.getEstatura());
         
             
             System.out.println(preparedStatement);
@@ -102,7 +102,7 @@ public class PacienteDAOJdbc implements PacienteDAO {
     public List <Paciente> selectAllUsers() {
 
         // using try-with-resources to avoid closing resources (boiler plate code)
-        List < User > users = new ArrayList < > ();
+        List < Paciente > pacientes = new ArrayList < > ();
         // Step 1: Establishing a Connection
         try (Connection connection = getConnection();
 
@@ -114,16 +114,23 @@ public class PacienteDAOJdbc implements PacienteDAO {
 
             // Step 4: Process the ResultSet object.
             while (rs.next()) {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String email = rs.getString("email");
-                String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                Integer id = rs.getInt("id");
+                String documento = rs.getString("documento");;
+            	String nombre = rs.getString("nombre");
+            	String apellido = rs.getString("apellido");
+            	String email = rs.getString("email");
+            	String genero = rs.getString("genero");
+            	String fechanacimiento = rs.getString("fechanacimiento");
+            	String telefono = rs.getString("telefono");;
+            	String direccion =  rs.getString("direccion");
+                Integer peso = rs.getInt("peso");
+            	Integer estatura = rs.getInt("estatura");
+                pacientes.add(new Paciente(id, documento,nombre, apellido, email , genero ,fechanacimiento , telefono ,direccion , peso ,estatura));
             }
         } catch (SQLException e) {
             printSQLException(e);
         }
-        return users;
+        return pacientes;
     }
 
     public boolean deleteUser(int id) throws SQLException {
@@ -135,13 +142,19 @@ public class PacienteDAOJdbc implements PacienteDAO {
         return rowDeleted;
     }
 
-    public boolean updateUser(User user) throws SQLException {
+    public boolean updateUser(Paciente paciente) throws SQLException {
         boolean rowUpdated;
         try (Connection connection = getConnection(); PreparedStatement statement = connection.prepareStatement(UPDATE_PACIENTES_SQL);) {
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getCountry());
-            statement.setInt(4, user.getId());
+        	statement.setString(1, paciente.getDocumento());
+            statement.setString(2, paciente.getNombre());
+            statement.setString(4, paciente.getApellido());
+             statement.setString(5, paciente.getEmail());
+             statement.setString(6, paciente.getGenero());
+             statement.setString(7, paciente.getFechanacimiento());
+             statement.setString(8, paciente.getTelefono());
+             statement.setString(9, paciente.getDireccion());
+             statement.setInt(10, paciente.getPeso());
+             statement.setInt(11, paciente.getEstatura());
 
             rowUpdated = statement.executeUpdate() > 0;
         }
